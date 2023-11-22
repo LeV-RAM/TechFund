@@ -10,10 +10,28 @@
     <!-- Load FontAwesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        #content {
+            flex: 1;  /* This allows the content to expand and push the footer down */
+            /* Your content styles here */
+        }
+        footer {
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            /* No need for 'position: absolute' here */
+        }
         body {
             background-color: #343a40; /* Adjusted to a dark grey to match Bootstrap's dark theme */
             color: white;
-            margin: 0;
         }
         .navbar-custom .btn:hover {
             color: #00008B; /* Dark blue text on hover */
@@ -21,7 +39,7 @@
             border-radius: 0.25rem; /* Slight rounding of corners on hover */
         }
         .navbar-custom {
-            background-color: #00008B; /* Dark blue background */
+            background-color: #000000; /* Dark blue background */
             color: white;
             display: flex;
             justify-content: space-between; /* Align items on both ends */
@@ -58,7 +76,7 @@
         }
     </style>
 </head>
-<body>
+<body style="margin: 0; padding-bottom: 4rem;">
 
 <nav class="navbar navbar-custom navbar-dark">
     <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
@@ -77,6 +95,90 @@
         </button>
     </div>
 </nav>
+<!-- content -->
+<div style="background-color: #343a40; padding: 2rem; text-align: center;">
+    <!-- Box container -->
+    <!-- Content area with dark background -->
+<div style="background-color: #343a40; padding: 2rem; text-align: center;">
+    <!-- Box container with wrapping boxes -->
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <!-- Box 1 -->
+        <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 1</p>
+                <p>Description for box 1...</p>
+            </div>
+        </a>
+        <!-- Box 2 -->
+        <a href="link-to-your-destination-2" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 2</p>
+                <p>Description for box 2...</p>
+            </div>
+        </a>
+        <!-- Box 3 -->
+        <a href="link-to-your-destination-3" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 3</p>
+                <p>Description for box 3...</p>
+            </div>
+        </a>
+        <!-- Box 4 -->
+        <a href="link-to-your-destination-4" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 4</p>
+                <p>Description for box 4...</p>
+            </div>
+        </a>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <!-- Box 1 -->
+        <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 1</p>
+                <p>Description for box 1...</p>
+            </div>
+        </a>
+        <!-- Box 2 -->
+        <a href="link-to-your-destination-2" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 2</p>
+                <p>Description for box 2...</p>
+            </div>
+        </a>
+        <!-- Box 3 -->
+        <a href="link-to-your-destination-3" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 3</p>
+                <p>Description for box 3...</p>
+            </div>
+        </a>
+        <!-- Box 4 -->
+        <a href="link-to-your-destination-4" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div>
+                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 4</p>
+                <p>Description for box 4...</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+    
+</div>
+
+<footer>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 1rem;">
+        <span style="font-weight: bold;">Tech Funds</span>
+        <div>
+            <a href="https://twitter.com" style="color: white; margin-right: 10px; text-decoration: none;">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://facebook.com" style="color: white; text-decoration: none;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </div>
+    </div>
+</footer>
 
 <!-- The rest of your page content goes here -->
 
