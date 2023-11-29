@@ -183,5 +183,43 @@
 <!-- The rest of your page content goes here -->
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('newProjectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch('/projects/create', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.project) {
+                    addProjectToUI(data.project);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        function addProjectToUI(project) {
+            let container = document.getElementById('projectContainer');
+            let newProject = `
+                <a href="/projects/${project.id}" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                    <div>
+                        <p style="font-size: 1.2rem; font-weight: bold;">${project.name}</p>
+                        <p>Needed: ${project.fund_needed}</p>
+                        <p>Deadline: ${project.deadline}</p>
+                    </div>
+                </a>
+            `;
+            container.innerHTML += newProject;
+        }
+    });
+</script>
 </body>
 </html>
