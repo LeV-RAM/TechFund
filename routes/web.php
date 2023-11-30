@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
 
 
 /*
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/testform', function () {
+    return view('testform');
+});
+
+Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('register.user');

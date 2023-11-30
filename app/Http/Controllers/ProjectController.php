@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Models\project;
 use App\Models\people; 
 use App\Models\stakeholder; 
+
 
 class ProjectController extends Controller
 {
@@ -122,4 +124,30 @@ class ProjectController extends Controller
 
         return response()->json(['message' => 'Project deleted successfully']);
     }
+    //ini bawah tinggal copas
+    public function addUser(Request $request){
+
+        $request->validate([
+            'name' => 'required',
+            'age' => 'required',
+            'email' => 'required|unique:people,email',
+            'password' => 'required',
+            'address' => 'required',
+            'dob' => 'required',
+            'phoneNumber' => 'required|numeric|digits:12',
+            
+        ]);
+
+        people::create([
+            'name' => $request['name'],
+            'age' => $request['age'],
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'address' => $request['address'],
+            'date of birth' => $request['dob'],
+            'phone number' => $request['phoneNumber']
+        ]);
+        return redirect('/');
+    }
 }
+

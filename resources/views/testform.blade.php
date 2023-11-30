@@ -1,0 +1,211 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECH FUNDS</title>
+    <!-- Load Bootstrap CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Load FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        #content {
+            flex: 1;  /* This allows the content to expand and push the footer down */
+            /* Your content styles here */
+        }
+        footer {
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            /* No need for 'position: absolute' here */
+        }
+        body {
+            background-color: #343a40; /* Adjusted to a dark grey to match Bootstrap's dark theme */
+            color: white;
+        }
+        .navbar-custom .btn:hover {
+            color: #00008B; /* Dark blue text on hover */
+            background-color: #ffffff; /* White background on hover */
+            border-radius: 0.25rem; /* Slight rounding of corners on hover */
+        }
+        .navbar-custom {
+            background-color: #000000; /* Dark blue background */
+            color: white;
+            display: flex;
+            justify-content: space-between; /* Align items on both ends */
+            padding: 0.5rem 1rem;
+        }
+        .navbar-custom .navbar-brand {
+            margin-left: 1rem; /* Adjust as needed for positioning */
+            font-weight: bold; /* Bold font for the title */
+        }
+        .navbar-custom .btn {
+            color: white; /* White text for buttons */
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
+            padding: 0.375rem 0.75rem; /* Bootstrap's default padding for buttons */
+        }
+        .navbar-custom .btn:focus {
+            outline: none; /* Removes the outline on focus for buttons */
+            box-shadow: none; /* Removes the box-shadow on focus for buttons */
+        }
+        .navbar-custom .btn:not(:last-child) {
+            margin-right: 0.5rem; /* Spacing between buttons */
+        }
+        .navbar-custom .fas {
+            margin-right: 0.5rem; /* Spacing for icons */
+        }
+        /* Ensure icons and text align properly */
+        .btn i {
+            vertical-align: middle;
+        }
+        /* Right aligned items */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* register */
+
+        a.backbutton{
+            font-size:20px;
+            color:white;
+            text-decoration: none;
+            /* background-color: white; */
+            padding:15px;
+            margin:15px;
+
+        }
+
+        .g-3{
+            /* display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            align-content: space-between; */
+            font-size: 30px;
+            padding:0px 200px;
+        }
+        .col-md-6{
+            margin: 2vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: space-evenly;
+        }
+        
+        .btnstyle{
+            font-size:25px;
+        }
+
+        .form-label{
+            margin-right:20px;
+        }
+
+        input, textarea{
+            font-size:20px;
+            width:70%;
+        }
+
+    </style>
+</head>
+
+<body style="margin: 0; padding-bottom: 4rem;">
+
+<nav class="navbar navbar-custom navbar-dark">
+    <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+    <div class="navbar-right">
+        <!-- New Project button -->
+        <button class="btn btn-new-project" type="button" onclick="window.location.href='';">
+            <i class="fas fa-plus"></i> New Project
+        </button>
+        <!-- Notifications button -->
+        <button class="btn" type="button" onclick="window.location.href='';">
+            <i class="fas fa-bell"></i>
+        </button>
+        <!-- Profile button -->
+        <button class="btn" type="button" onclick="window.location.href='';">
+            <i class="fas fa-user"></i>
+        </button>
+    </div>
+</nav>
+<!-- content -->
+<div style="background-color: #343a40; padding: 2rem; text-align: center; display:flex; flex-direction:row; flex-wrap:wrap; justify-content: center;">
+    <!-- Box container with wrapping boxes -->
+    <a href="home" class="backbutton">BACK</a>
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <!-- Box 1 -->
+        <a style="background-color: #505050; color: white; padding: 15rem; border-radius: 20vh; margin-bottom: 2rem; width: 30vw; height: 30vh; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div style="font-size:50px;">
+            <div style="margin-bottom:8vh;">REGISTER</div>
+            
+            <form class="row g-3" method="POST" action="{{route('register.user')}}">
+                @csrf
+                
+                <div class="col-md-6">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="age">Age</label>
+                    <input type="number" id="age" name="age" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="address">Address</label>
+                    <div class = "row g-100">
+                    <textarea type="text" id="address" name="address" class="form-control" style="display: inline-block; width:30vw; height:10vh; vertical-align: top; text-align:left;">
+                    </textarea>    
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="phoneNumber">Phone number</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" pattern="[0]{1}[0-9]{11}" placeholder="start with 0">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary btnstyle" type="submit">Register</button>
+                </div>
+            </form>
+            </div>
+        </a>
+</div>
+
+    
+</div>
+
+<footer>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 1rem;">
+        <span style="font-weight: bold;">Tech Funds</span>
+        <div>
+            <a href="https://twitter.com" style="color: white; margin-right: 10px; text-decoration: none;">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://facebook.com" style="color: white; text-decoration: none;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+

@@ -13,4 +13,7 @@ class stakeholder extends Model
     public function project(){
         return $this->belongsToMany(project::class);
     }
+    protected $fillable = [
+        'amount'
+    ];
 }

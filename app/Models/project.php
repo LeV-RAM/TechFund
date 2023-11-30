@@ -17,5 +17,12 @@ class project extends Model
     public function stakeholder(){
         return $this->hasMany(stakeholder::class);
     }
+
+    protected $fillable = [
+        'projectname',
+        'fund',
+        'deadline',
+        'needworker',
+    ];
     
 }

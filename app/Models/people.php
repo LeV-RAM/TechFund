@@ -13,4 +13,15 @@ class people extends Model
     public function project(){
         return $this->hasOne(project::class);
     }
+    
+    protected $fillable = [
+        'peopleID',
+        'name',
+        'age',
+        'email',
+        'password',
+        'address',
+        'date of birth',
+        'phone number'
+    ];
 }
