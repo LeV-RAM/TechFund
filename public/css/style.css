@@ -136,3 +136,8 @@ footer {
     padding: 1rem 0;
     /* No need for 'position: absolute' here */
 }
+
+.log-out button {
+    margin: 0 auto;
+    display: block;
+}
