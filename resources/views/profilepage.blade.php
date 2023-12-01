@@ -13,7 +13,7 @@
         <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
         <div class="navbar-right">
             <!-- New Project button -->
-            <button class="btn btn-new-project" type="button" onclick="window.location.href='';">
+            <button class="btn btn-new-project" type="button" onclick="window.location.href='newproject';">
                 <i class="fas fa-plus"></i> New Project
             </button>
             <!-- Notifications button -->
@@ -21,7 +21,7 @@
                 <i class="fas fa-bell"></i>
             </button>
             <!-- Profile button -->
-            <button class="btn" type="button" onclick="window.location.href='';">
+            <button class="btn" type="button" onclick="window.location.href='profilepage';">
                 <i class="fas fa-user"></i>
             </button>
         </div>

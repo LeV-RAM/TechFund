@@ -28,6 +28,14 @@ Route::get('/testform', function () {
     return view('testform');
 });
 
+Route::get('/profilepage', function () {
+    return view('profilepage');
+});
+
+Route::get('/newproject', function () {
+    return view('newproject');
+});
+
 Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('register.user');
 
 

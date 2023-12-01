@@ -126,7 +126,7 @@
     <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
     <div class="navbar-right">
         <!-- New Project button -->
-        <button class="btn btn-new-project" type="button" onclick="window.location.href='';">
+        <button class="btn btn-new-project" type="button" onclick="window.location.href='newproject';">
             <i class="fas fa-plus"></i> New Project
         </button>
         <!-- Notifications button -->
@@ -134,7 +134,7 @@
             <i class="fas fa-bell"></i>
         </button>
         <!-- Profile button -->
-        <button class="btn" type="button" onclick="window.location.href='';">
+        <button class="btn" type="button" onclick="window.location.href='profilepage';">
             <i class="fas fa-user"></i>
         </button>
     </div>
@@ -142,7 +142,7 @@
 <!-- content -->
 <div style="background-color: #343a40; padding: 2rem; text-align: center; display:flex; flex-direction:row; flex-wrap:wrap; justify-content: center;">
     <!-- Box container with wrapping boxes -->
-    <a href="home" class="backbutton">BACK</a>
+    <a href="/" class="backbutton">BACK</a>
     <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
         <!-- Box 1 -->
         <a style="background-color: #505050; color: white; padding: 15rem; border-radius: 20vh; margin-bottom: 2rem; width: 30vw; height: 30vh; display: flex; align-items: center; justify-content: center; text-decoration: none;">
