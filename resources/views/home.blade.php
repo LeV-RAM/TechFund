@@ -82,7 +82,7 @@
     <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
     <div class="navbar-right">
         <!-- New Project button -->
-        <button class="btn btn-new-project" type="button" onclick="window.location.href='newproject';">
+        <button class="btn btn-new-project" type="button" onclick=toNewProject()>
             <i class="fas fa-plus"></i> New Project
         </button>
         <!-- Notifications button -->
@@ -90,7 +90,7 @@
             <i class="fas fa-bell"></i>
         </button>
         <!-- Profile button -->
-        <button class="btn" type="button" onclick="window.location.href='profilepage';">
+        <button class="btn" type="button" onclick=viewProfile()>
             <i class="fas fa-user"></i>
         </button>
     </div>
@@ -103,67 +103,14 @@
 @if(session()->has('people'))
     <a>Welcome, {{ session('people.name') }}!</a>
 @endif
-    <!-- Box container with wrapping boxes -->
-    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        <!-- Box 1 -->
-        <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 1</p>
-                <p>Description for box 1...</p>
-            </div>
-        </a>
-        <!-- Box 2 -->
-        <a href="link-to-your-destination-2" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 2</p>
-                <p>Description for box 2...</p>
-            </div>
-        </a>
-        <!-- Box 3 -->
-        <a href="link-to-your-destination-3" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 3</p>
-                <p>Description for box 3...</p>
-            </div>
-        </a>
-        <!-- Box 4 -->
-        <a href="link-to-your-destination-4" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 4</p>
-                <p>Description for box 4...</p>
-            </div>
-        </a>
-    </div>
-    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        <!-- Box 1 -->
-        <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 1</p>
-                <p>Description for box 1...</p>
-            </div>
-        </a>
-        <!-- Box 2 -->
-        <a href="link-to-your-destination-2" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 2</p>
-                <p>Description for box 2...</p>
-            </div>
-        </a>
-        <!-- Box 3 -->
-        <a href="link-to-your-destination-3" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 3</p>
-                <p>Description for box 3...</p>
-            </div>
-        </a>
-        <!-- Box 4 -->
-        <a href="link-to-your-destination-4" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-            <div>
-                <p style="font-size: 1.2rem; font-weight: bold;">Box Title 4</p>
-                <p>Description for box 4...</p>
-            </div>
-        </a>
-    </div>
+@foreach($projects as $project)   
+    <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+        <div>
+            <p style="font-size: 1.2rem; font-weight: bold;">Box Title 1</p>
+            <p>Description for box 1...</p>
+        </div>
+    </a>
+@endforeach
 </div>
 
     
@@ -187,42 +134,35 @@
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('newProjectForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+    function toNewProject(){
+        fetch('/newproject', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'newproject';
+        })
+    }
 
-            let formData = new FormData(this);
+    function viewProfile(){
+        fetch('/profile', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'profile';
+        })
+    }
 
-            fetch('/projects/create', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.project) {
-                    addProjectToUI(data.project);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-
-        function addProjectToUI(project) {
-            let container = document.getElementById('projectContainer');
-            let newProject = `
-                <a href="/projects/${project.id}" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                    <div>
-                        <p style="font-size: 1.2rem; font-weight: bold;">${project.name}</p>
-                        <p>Needed: ${project.fund_needed}</p>
-                        <p>Deadline: ${project.deadline}</p>
-                    </div>
-                </a>
-            `;
-            container.innerHTML += newProject;
-        }
-    });
+    function terminateSession(){
+        fetch('/terminate', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = '/';
+        })
+    }
 </script>
 </body>
 </html>

@@ -13,7 +13,7 @@
         <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
         <div class="navbar-right">
             <!-- New Project button -->
-            <button class="btn btn-new-project" type="button" onclick="window.location.href='newproject';">
+            <button class="btn btn-new-project" type="button" onclick=toNewProject()>
                 <i class="fas fa-plus"></i> New Project
             </button>
             <!-- Notifications button -->
@@ -21,7 +21,7 @@
                 <i class="fas fa-bell"></i>
             </button>
             <!-- Profile button -->
-            <button class="btn" type="button" onclick="window.location.href='profilepage';">
+            <button class="btn" type="button" onclick=viewProfile()>
                 <i class="fas fa-user"></i>
             </button>
         </div>
@@ -89,4 +89,36 @@
         </div>
     </footer>
 </body>
+
+<script>
+    function toNewProject(){
+        fetch('/newproject', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'newproject';
+        })
+    }
+
+    function viewProfile(){
+        fetch('/profile', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'profile';
+        })
+    }
+    
+    function terminateSession(){
+        fetch('/terminate', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = '/';
+        })
+    }
+</script>
 </html>

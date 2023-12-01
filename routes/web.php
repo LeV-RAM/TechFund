@@ -16,13 +16,21 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
-    return view('/login');
+    return view('login');
 });
 Route::post('/login', [ProjectController::class, 'authcheck'])->name('login.user');
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/newproject', [ProjectController::class, 'viewNewProject'])->name('new.project');
+Route::get('/profile', [ProjectController::class, 'viewProfile'])->name('view.profile');
+
+Route::post('/', [ProjectController::class, 'terminateSession'])->name('logout');
+
+// Route::get('/home', function () {
+//     return view('home');
+// });
+
+Route::get('/home', [ProjectController::class, 'index'])->name('Home');
+Route::post('/home', [ProjectController::class, 'create'])->name('Store');
 
 Route::get('/testform', function () {
     return view('testform');
@@ -37,8 +45,6 @@ Route::get('/newproject', function () {
 });
 
 Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('register.user');
-
-
 
 Route::get('check1', function(){
     return view('newproject');

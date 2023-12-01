@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\project;
 use App\Models\people; 
-use App\Models\stakeholder; 
+use App\Models\stakeholder;
+use Illuminate\Support\Facades\DB; 
 
 
 class ProjectController extends Controller
@@ -19,6 +20,19 @@ class ProjectController extends Controller
      * @param  Request  $request
      * @return Response
      */
+
+    public function viewNewProject(Request $request)
+    {
+        $data = $request->session()->get('email');
+        return view('newproject', ['people', $data]);
+    }
+
+    public function viewProfile(Request $request)
+    {
+        $data = $request->session()->get('email');
+        return view('profilepage', ['people', $data]);
+    }
+
     public function create(Request $request)
     {
         // Validate the request data
@@ -31,22 +45,26 @@ class ProjectController extends Controller
 
         // Assuming the ownerID is the ID of the currently authenticated user
         
-        $ownerID = Auth::id();
+        DB::transaction(function () use($request) {
+            $project = project::create([
+                'projectname' => $request->projectname,
+                'fund' => $request->fund,
+                'deadline' => $request->deadline,
+                'needworker' => $request->needworker,
+            ]);
 
-        // Create a new project
-        $project = new project;
-        $project->owner_id = $ownerID;
-        $project->name = $request->projectName;
-        $project->fund = $request->fund;
-        $project->deadline = $request->deadline;
-        $project->needworker = $request->needworker;
-        
-        $project->save();
+            
+        });
 
-        return response()->json([
-            'message' => 'Project successfully created!',
-            'project' => $project
-        ], 201);
+        return redirect(route('home'));
+    }
+
+    public function index()
+    {
+        return view('home', [
+            'title' => 'Project List',
+            'projects' => project::simplePaginate(8)
+        ]);
     }
 
     public function totalProjectsCount()
@@ -168,6 +186,14 @@ class ProjectController extends Controller
         
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+    }
+
+    public function terminateSession(Request $request){
+        $request->session()->flush();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }
 

@@ -6,16 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Funding</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Load FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body>
     <nav class="navbar navbar-custom navbar-dark">
         <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
         <div class="navbar-right">
-            <!-- New Project button -->
-            <button class="btn btn-new-project" type="button" onclick="window.location.href='newproject';">
-                <i class="fas fa-plus"></i> New Project
-            </button>
             <!-- Notifications button -->
             <button class="btn" type="button" onclick="window.location.href='';">
                 <i class="fas fa-bell"></i>
@@ -28,8 +27,7 @@
     </nav>
 
     <div class="container" style="margin-top: 3rem;">
-        <a href="{{ url()->previous() }}" class="btn btn-primary" style="margin-bottom: 1rem;"><< Back</a>
-        
+        <a onclick= backHome() class="btn btn-primary" style="margin-bottom: 1rem;"><< Back</a>
         <div class="card">
             <div class="card-header">
                 Project Data
@@ -86,4 +84,45 @@
         </div>
     </footer>
 </body>
+
+<script>
+    function toNewProject(){
+        fetch('/newproject', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'newproject';
+        })
+    }
+
+    function viewProfile(){
+        fetch('/profile', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'profile';
+        })
+    }
+    function backHome(){
+        fetch('/home', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'home';
+        })
+    }
+    
+    function terminateSession(){
+        fetch('/terminate', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = '/';
+        })
+    }
+</script>
 </html>
