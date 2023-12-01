@@ -106,8 +106,9 @@
 @foreach($projects as $project)   
     <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
         <div>
-            <p style="font-size: 1.2rem; font-weight: bold;">Box Title 1</p>
-            <p>Description for box 1...</p>
+            <p style="font-size: 1.2rem; font-weight: bold;">{{$project->projectname}}</p>
+            <p>Current Funds Collected:</p>
+            <p>{{$project->fund}}</p>
         </div>
     </a>
 @endforeach
@@ -145,12 +146,12 @@
     }
 
     function viewProfile(){
-        fetch('/profile', {
+        fetch('/profilepage', {
             method: 'POST'
         })
         .then(response => {
             // After session update, navigate to the new URL
-            window.location.href = 'profile';
+            window.location.href = 'profilepage';
         })
     }
 

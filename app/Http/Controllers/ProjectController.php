@@ -30,34 +30,15 @@ class ProjectController extends Controller
     public function viewProfile(Request $request)
     {
         $data = $request->session()->get('email');
-        return view('profilepage', ['people', $data]);
-    }
-
-    public function create(Request $request)
-    {
-        // Validate the request data
-        $request->validate([
-            'projectname' => 'required|max:255',
-            'fund' => 'required|numeric',
-            'deadline' => 'required|date',
-            'needworker' => 'required|boolean',
-        ]);
-
-        // Assuming the ownerID is the ID of the currently authenticated user
+        $ownerId = $request->session()->get('peopleID');
         
-        DB::transaction(function () use($request) {
-            $project = project::create([
-                'projectname' => $request->projectname,
-                'fund' => $request->fund,
-                'deadline' => $request->deadline,
-                'needworker' => $request->needworker,
-            ]);
-
-            
-        });
-
-        return redirect(route('home'));
+        return view('profilepage', [
+            'people'=> $data, 
+            'projects' => project::where('ownerID', $ownerId)->simplePaginate(4)
+        ]);
     }
+
+    
 
     public function index()
     {
@@ -116,10 +97,10 @@ class ProjectController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        $project->name = $request->projectame;
-        $project->fund_needed = $request->fund;
-        $project->deadline = $request->deadline;
-        $project->status = $request->needworker;
+        $project->name = $request['projectname'];
+        $project->fund_needed = $request['fund'];
+        $project->deadline = $request['deadline'];
+        $project->status = $request['needworker'];
 
         $project->save();
 
@@ -143,6 +124,27 @@ class ProjectController extends Controller
 
         return response()->json(['message' => 'Project deleted successfully']);
     }
+
+    public function create(Request $request)
+    {
+        $request->validate([
+            'projectname' => 'required|max:255',
+            'fund' => 'required|numeric',
+            'deadline' => 'required|date',
+            'needworker' => 'required|boolean',
+        ]);
+
+        project::create([
+            'projectname' => $request->projectname,
+            'fund' => $request->fund,
+            'deadline' => $request->deadline,
+            'needworker' => $request->needworker,
+        ]);
+        
+
+        return redirect('/home');
+    }
+
     //ini bawah tinggal copas
     public function addUser(Request $request){
 

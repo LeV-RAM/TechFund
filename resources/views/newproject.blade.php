@@ -33,17 +33,17 @@
                 Project Data
             </div>
             <div class="card-body">
-                {{-- <form action="{{ route('projects.store') }}" method="POST"> --}}
+                <form action="{{ route('Store') }}" method="POST">
                     @csrf
                     
                     <div class="form-group">
-                        <label for="project_name">Project Name:</label>
-                        <input type="text" class="form-control" id="project_name" name="project_name" required>
+                        <label for="projectname">Project Name:</label>
+                        <input type="text" class="form-control" id="projectname" name="projectname" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="funds_needed">Funds Needed:</label>
-                        <input type="number" class="form-control" id="funds_needed" name="funds_needed" required>
+                        <label for="fund">Funds Needed:</label>
+                        <input type="number" class="form-control" id="fund" name="fund" required>
                     </div>
                     
                     <div class="form-group">
@@ -54,11 +54,11 @@
                     <div class="form-group">
                         <label>Need Worker?</label>
                         <div>
-                            <input type="radio" id="need_worker_yes" name="need_worker" value="yes">
+                            <input type="radio" id="need_worker_yes" name="needworker" value="yes">
                             <label for="need_worker_yes">Yes</label>
                         </div>
                         <div>
-                            <input type="radio" id="need_worker_no" name="need_worker" value="no">
+                            <input type="radio" id="need_worker_no" name="needworker" value="no">
                             <label for="need_worker_no">No</label>
                         </div>
                     </div>
@@ -97,12 +97,12 @@
     }
 
     function viewProfile(){
-        fetch('/profile', {
+        fetch('/profilepage', {
             method: 'POST'
         })
         .then(response => {
             // After session update, navigate to the new URL
-            window.location.href = 'profile';
+            window.location.href = 'profilepage';
         })
     }
     function backHome(){

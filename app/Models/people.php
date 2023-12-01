@@ -16,7 +16,6 @@ class people extends Authenticatable
     }
     
     protected $fillable = [
-        'peopleID',
         'name',
         'age',
         'email',
@@ -25,4 +24,6 @@ class people extends Authenticatable
         'date of birth',
         'phone number'
     ];
+
+    protected $primaryKey = 'peopleID';
 }

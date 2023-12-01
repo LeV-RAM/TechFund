@@ -102,12 +102,12 @@
     }
 
     function viewProfile(){
-        fetch('/profile', {
+        fetch('/profilepage', {
             method: 'POST'
         })
         .then(response => {
             // After session update, navigate to the new URL
-            window.location.href = 'profile';
+            window.location.href = 'profilepage';
         })
     }
     

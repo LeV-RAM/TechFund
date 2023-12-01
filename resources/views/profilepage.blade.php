@@ -46,14 +46,21 @@
                 <h3>Your Projects:</h3>
                 <div class="card-deck">
                     <!-- Dynamically generated project cards -->
-                    {{-- @foreach ($yourProjects as $project)
-                        <div class="card">
+                    @foreach ($projects as $project)
+                        <!-- <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $project->name }}</h5>
                                 <a href="#" class="btn btn-primary">Visit Project</a>
                             </div>
-                        </div>
-                    @endforeach --}}
+                        </div> -->
+                        <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                            <div>
+                                <p style="font-size: 1.2rem; font-weight: bold;">{{$project->projectname}}</p>
+                                <p>Current Funds Collected:</p>
+                                <p>{{$project->fund}}</p>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

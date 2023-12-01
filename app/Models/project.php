@@ -24,5 +24,7 @@ class project extends Model
         'deadline',
         'needworker',
     ];
+
+    protected $primaryKey = 'projectID';
     
 }
