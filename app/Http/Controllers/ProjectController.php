@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\project;
 use App\Models\people; 
@@ -137,17 +138,36 @@ class ProjectController extends Controller
             'phoneNumber' => 'required|numeric|digits:12',
             
         ]);
-
         people::create([
             'name' => $request['name'],
             'age' => $request['age'],
             'email' => $request['email'],
-            'password' => $request['password'],
+            'password' => Hash::make($request['password']),
             'address' => $request['address'],
             'date of birth' => $request['dob'],
             'phone number' => $request['phoneNumber']
         ]);
         return redirect('/');
+    }
+
+    //authentication
+
+    public function authcheck(Request $request){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if(Auth::attempt($credentials)){
+            $people = Auth::user();
+            $request->session()->put('people', $people); // Store user object or necessary user data
+            return redirect()->intended('/home');
+            
+        }
+        
+        
+
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
 }
 

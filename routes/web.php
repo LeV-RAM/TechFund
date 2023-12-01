@@ -16,6 +16,11 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::get('/', function () {
+    return view('/login');
+});
+Route::post('/login', [ProjectController::class, 'authcheck'])->name('login.user');
+
+Route::get('/home', function () {
     return view('home');
 });
 
@@ -24,3 +29,9 @@ Route::get('/testform', function () {
 });
 
 Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('register.user');
+
+
+
+Route::get('check1', function(){
+    return view('newproject');
+});

@@ -100,6 +100,9 @@
     <!-- Box container -->
     <!-- Content area with dark background -->
 <div style="background-color: #343a40; padding: 2rem; text-align: center;">
+@if(session()->has('people'))
+    <a>Welcome, {{ session('people.name') }}!</a>
+@endif
     <!-- Box container with wrapping boxes -->
     <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
         <!-- Box 1 -->

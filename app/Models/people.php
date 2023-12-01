@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class people extends Model
+class people extends Authenticatable
 {
     public $table = "people"; //supaya laravelnya engga nambahin s jadi peoples
     use HasFactory;
