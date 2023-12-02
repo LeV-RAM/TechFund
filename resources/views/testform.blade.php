@@ -24,7 +24,15 @@
             color: white;
             text-align: center;
             padding: 1rem 0;
-            /* No need for 'position: absolute' here */
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 20px; /* Adjust the height as needed */
+            background-color: black; /* Your desired footer background color */
+            color: white; /* Your desired text color */
+            text-align: center;
+            margin-top:60px
         }
         body {
             background-color: #343a40; /* Adjusted to a dark grey to match Bootstrap's dark theme */

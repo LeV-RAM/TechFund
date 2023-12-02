@@ -48,6 +48,14 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function viewProject($id)
+    {
+        return view('visit', [
+            'title' => 'Project Details',
+            'project' => project::findOrFail($id)
+        ]);
+    }
+
     public function totalProjectsCount()
     {
         $count = project::count();
@@ -134,7 +142,10 @@ class ProjectController extends Controller
             'needworker' => 'required|boolean',
         ]);
 
+        $ownerId = Auth::id();
+
         project::create([
+            'ownerID' => $ownerId,
             'projectname' => $request->projectname,
             'fund' => $request->fund,
             'deadline' => $request->deadline,

@@ -19,6 +19,7 @@ class project extends Model
     }
 
     protected $fillable = [
+        'ownerID',
         'projectname',
         'fund',
         'deadline',

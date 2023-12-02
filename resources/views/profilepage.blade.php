@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-custom navbar-dark">
-        <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+        <span class="navbar-brand mb-0 h1"><a onclick="backHome()">TECH FUNDS</a></span>
         <div class="navbar-right">
             <button class="btn btn-new-project" type="button" onclick="toNewProject()">
                 <i class="fas fa-plus"></i> New Project
@@ -33,7 +33,7 @@
     
         <div class="row mb-4">
             <div class="col-12 text-center">
-                <img src="path_to_avatar_image" alt="Profile Avatar" class="rounded-circle mb-2" style="width: 100px; height: 100px;">
+                <img src="{{asset('profilepic.png')}}" alt="Profile Avatar" class="rounded-circle mb-2" style="width: 100px; height: 100px;">
                 <h2>{{session('people.name')}}</h2> 
 
                 <hr>

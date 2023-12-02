@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TECH FUNDS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Load Bootstrap CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Load FontAwesome CSS -->
@@ -27,6 +30,14 @@
             color: white;
             text-align: center;
             padding: 1rem 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 20px; /* Adjust the height as needed */
+            background-color: black; /* Your desired footer background color */
+            color: white; /* Your desired text color */
+            text-align: center;
             /* No need for 'position: absolute' here */
         }
         body {
@@ -79,7 +90,7 @@
 <body style="margin: 0; padding-bottom: 4rem;">
 
 <nav class="navbar navbar-custom navbar-dark">
-    <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+    <span class="navbar-brand mb-0 h1"><a onclick="backHome()">TECH FUNDS</a></span>    
     <div class="navbar-right">
         <!-- New Project button -->
         <button class="btn btn-new-project" type="button" onclick=toNewProject()>
@@ -97,17 +108,17 @@
 </nav>
 <!-- content -->
 <div style="background-color: #343a40; padding: 2rem; text-align: center;">
-    <!-- Box container -->
-    <!-- Content area with dark background -->
-<div style="background-color: #343a40; padding: 2rem; text-align: center;">
 @if(session()->has('people'))
     <a>Welcome, {{ session('people.name') }}!</a>
 @endif
+    <!-- Box container -->
+<div style="background-color: #343a40; padding: 2rem; display: flex; flex-wrap: wrap; justify-content: flex-start; text-align: center;">
+
 @foreach($projects as $project)   
-    <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+    <a href="{{route('showProject', ['id' => $project->projectID])}}" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none; margin: 1rem;">
         <div>
             <p style="font-size: 1.2rem; font-weight: bold;">{{$project->projectname}}</p>
-            <p>Current Funds Collected:</p>
+            <p>Current Funds Needed:</p>
             <p>{{$project->fund}}</p>
         </div>
     </a>

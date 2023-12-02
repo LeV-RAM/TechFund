@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-custom navbar-dark">
-        <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+        <span class="navbar-brand mb-0 h1"><a onclick="backHome()">TECH FUNDS</a></span>
         <div class="navbar-right">
             <!-- Notifications button -->
             <button class="btn" type="button" onclick="window.location.href='';">
@@ -33,33 +33,31 @@
                 Project Data
             </div>
             <div class="card-body">
-                <form action="{{ route('Store') }}" method="POST">
+            <form action="{{ route('Store') }}" method="POST">
                     @csrf
                     
                     <div class="form-group">
                         <label for="projectname">Project Name:</label>
-                        <input type="text" class="form-control" id="projectname" name="projectname" required>
+                        <input type="text" class="form-control" id="projectname" name="projectname">
                     </div>
                     
                     <div class="form-group">
                         <label for="fund">Funds Needed:</label>
-                        <input type="number" class="form-control" id="fund" name="fund" required>
+                        <input type="number" class="form-control" id="fund" name="fund">
                     </div>
                     
                     <div class="form-group">
                         <label for="deadline">Deadline:</label>
-                        <input type="date" class="form-control" id="deadline" name="deadline" required>
+                        <input type="date" class="form-control" id="deadline" name="deadline">
                     </div>
                     
                     <div class="form-group">
-                        <label>Need Worker?</label>
-                        <div>
-                            <input type="radio" id="need_worker_yes" name="needworker" value="yes">
-                            <label for="need_worker_yes">Yes</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="need_worker_no" name="needworker" value="no">
-                            <label for="need_worker_no">No</label>
+                        <div class="flex flex-col gap-y-5">
+                            <label class="font-semibold pr-44 text-xl text-grayCerebrum" for="">Need worker?</label>
+                            <select name="needworker" id="needworker" class="form-contro">
+                                <option value="1">YES</option>
+                                <option value="0">NO</option>
+                            </select>
                         </div>
                     </div>
                     
