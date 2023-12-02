@@ -13,7 +13,14 @@ class stakeholder extends Model
     public function project(){
         return $this->belongsToMany(project::class);
     }
+    public function people(){
+        return $this->belongsToMany(people::class);
+    }
     protected $fillable = [
+        'projectID',
+        'stakeholderID',
         'amount'
     ];
+
+    protected $primaryKey = 'stakeholderID';
 }

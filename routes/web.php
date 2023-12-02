@@ -26,6 +26,10 @@ Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('re
 
 Route::post('/login', [ProjectController::class, 'authcheck'])->name('login.user');
 Route::get('/home', [ProjectController::class, 'index'])->name('Home');
+Route::get('/home/{id}', [ProjectController::class, 'viewProject'])->name('showProject');
+Route::get('/home/{id}/fundin', [ProjectController::class, 'fundProject'])->name('fundProj');
+
+Route::get('/home/{id}/{value}', [ProjectController::class, 'afterFund'])->name('backToProject');
 
 // Route::get('/newproject', function () {
 //     return view('newproject');
@@ -34,6 +38,7 @@ Route::get('/newproject', [ProjectController::class, 'viewNewProject'])->name('n
 Route::post('/newproject/project', [ProjectController::class, 'create'])->name('Store');
 
 Route::get('/profilepage', [ProjectController::class, 'viewProfile'])->name('view.profile');
+Route::get('/home/{id}/support',[ProjectController::class,'supporter'])->name('supportsaya');
 
 
 

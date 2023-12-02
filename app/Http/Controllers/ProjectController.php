@@ -27,6 +27,51 @@ class ProjectController extends Controller
         return view('newproject', ['people', $data]);
     }
 
+    public function fundProject(Request $request, $id)
+    {
+        $data = Auth::user();
+        $projectdata = Project::findOrFail($id);
+        return view('funding', [
+            'people' => $data, 
+            'project' => $projectdata
+        ]);
+    }
+
+    public function afterFund(Request $request, $id, $value){
+
+        $val = intval($value);
+        $project = project::findOrFail($id);
+        
+        $currFund = $project->fund;
+
+
+        $pplCheck = stakeholder::where('stakeholderID', Auth::user()->peopleID)->where('projectID', $project->projectID)->first();
+
+        if($pplCheck){
+            $prevAmount = $pplCheck->amount;
+            $pplCheck->update(['amount' => $prevAmount + $val]);
+            
+        }
+        else{
+            $c = $project->pplCounter;
+            $project->update(['pplCounter' => $c + 1]);
+            stakeholder::create([
+                'projectID' => $project->projectID,
+                'stakeholderID' => Auth::user()->peopleID,
+                'amount' => $val
+            ]);
+        }
+
+
+
+        $project->update(['fund' => $currFund - $val]);
+
+        return view('visit', [
+            'title' => 'Project Details',
+            'project' => $project
+        ]);
+    }
+
     public function viewProfile(Request $request)
     {
         $data = $request->session()->get('email');
@@ -38,13 +83,29 @@ class ProjectController extends Controller
         ]);
     }
 
-    
+    public function supporter(Request $request, $id)
+    {
+        $data = Auth::user();
+        $projectdata = Project::findOrFail($id);
+        return view('support', [
+            'people' => $data, 
+            'project' => $projectdata
+        ]);
+    }
 
     public function index()
     {
         return view('home', [
             'title' => 'Project List',
             'projects' => project::simplePaginate(8)
+        ]);
+    }
+
+    public function viewProject($id)
+    {
+        return view('visit', [
+            'title' => 'Project Details',
+            'project' => project::findOrFail($id)
         ]);
     }
 
@@ -134,12 +195,13 @@ class ProjectController extends Controller
             'needworker' => 'required|boolean',
         ]);
 
-        $ownerid = Auth::id();
+        $ownerId = Auth::id();
 
         project::create([
-            'ownerID' => $ownerid,
+            'ownerID' => $ownerId,
             'projectname' => $request->projectname,
             'fund' => $request->fund,
+            'pplCounter' => 0,
             'deadline' => $request->deadline,
             'needworker' => $request->needworker,
         ]);

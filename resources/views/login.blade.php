@@ -139,6 +139,7 @@
     </div>
 </nav>
 <!-- content -->
+
 <div style="background-color: #343a40; padding: 2rem; text-align: center; display:flex; flex-direction:row; flex-wrap:wrap; justify-content: center;padding-bottom:60px">
     <!-- Box container with wrapping boxes -->
     

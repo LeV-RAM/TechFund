@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('ownerID')->references('peopleID')->on('people')->onDelete('cascade');
             $table->string('projectname');
             $table->decimal('fund',12,2);
+            $table->integer('pplCounter');
             $table->date('deadline');
             $table->boolean('needworker'); //klo butuh worker ini TRUE klo kga jd FALSE 
 

@@ -22,6 +22,7 @@ class project extends Model
         'ownerID',
         'projectname',
         'fund',
+        'pplCounter',
         'deadline',
         'needworker',
     ];

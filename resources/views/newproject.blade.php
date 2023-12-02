@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-custom navbar-dark">
-        <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+        <span class="navbar-brand mb-0 h1"><a onclick="backHome()">TECH FUNDS</a></span>
         <div class="navbar-right">
             <!-- Notifications button -->
             <button class="btn" type="button" onclick="window.location.href='';">
@@ -33,7 +33,7 @@
                 Project Data
             </div>
             <div class="card-body">
-                <form action="{{ route('Store') }}" method="POST">
+            <form action="{{ route('Store') }}" method="POST">
                     @csrf
                     
                     <div class="form-group">
