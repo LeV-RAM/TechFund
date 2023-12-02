@@ -27,14 +27,70 @@ class ProjectController extends Controller
         return view('newproject', ['people', $data]);
     }
 
+    public function fundProject(Request $request, $id)
+    {
+        $data = Auth::user();
+        $projectdata = Project::findOrFail($id);
+        return view('funding', [
+            'people' => $data, 
+            'project' => $projectdata
+        ]);
+    }
+
+    public function supporter(Request $request, $id)
+    {
+        $data = Auth::user();
+        $projectdata = Project::findOrFail($id);
+        return view('support', [
+            'people' => $data, 
+            'project' => $projectdata
+        ]);
+    }
+
+    public function afterFund(Request $request, $id, $value){
+
+        $val = intval($value);
+        $project = project::findOrFail($id);
+        
+        $currFund = $project->fund;
+
+
+        $pplCheck = stakeholder::where('stakeholderID', Auth::user()->peopleID)->where('projectID', $project->projectID)->first();
+
+        if($pplCheck){
+            $prevAmount = $pplCheck->amount;
+            $pplCheck->update(['amount' => $prevAmount + $val]);
+            
+        }
+        else{
+            $c = $project->pplCounter;
+            $project->update(['pplCounter' => $c + 1]);
+            stakeholder::create([
+                'projectID' => $project->projectID,
+                'stakeholderID' => Auth::user()->peopleID,
+                'amount' => $val
+            ]);
+        }
+
+
+
+        $project->update(['fund' => $currFund - $val]);
+
+        return view('visit', [
+            'title' => 'Project Details',
+            'project' => $project
+        ]);
+    }
+
     public function viewProfile(Request $request)
     {
-        $data = $request->session()->get('email');
-        $ownerId = $request->session()->get('peopleID');
+        $data = Auth::user();
+        // $investor = stakeholder::where('stakeholderID', $data->peopleID);
         
         return view('profilepage', [
             'people'=> $data, 
-            'projects' => project::where('ownerID', $ownerId)->simplePaginate(4)
+            'projects' => project::where('ownerID', $data->peopleID)->simplePaginate(4),
+            // 'projectsSupp' => project::where('projectID', $investor->projectID)->simplePaginate(4)
         ]);
     }
 
@@ -42,77 +98,21 @@ class ProjectController extends Controller
 
     public function index()
     {
+        $projects = project::where('fund', '>', 0)->simplePaginate(8);
         return view('home', [
             'title' => 'Project List',
-            'projects' => project::simplePaginate(8)
+            'projects' => $projects
         ]);
     }
 
     public function viewProject($id)
     {
+        $data = Auth::user();
         return view('visit', [
             'title' => 'Project Details',
-            'project' => project::findOrFail($id)
+            'project' => project::findOrFail($id),
+            'people' => $data
         ]);
-    }
-
-    public function totalProjectsCount()
-    {
-        $count = project::count();
-        return response()->json(['totalProjects' => $count]);
-    }
-
-    /**
-     * Get the number of projects created by the currently authenticated user.
-     *
-     * @return Response
-     */
-    public function userProjectsCount()
-    {
-        $count = project::where('owner_id', Auth::id())->count();
-        return response()->json(['userProjects' => $count]);
-    }
-
-    /**
-     * Get the number of stakeholders for each project.
-     * This assumes that there is a relationship defined in the Project model to get its stakeholders.
-     *
-     * @return Response
-     */
-    public function stakeholdersCount()
-    {
-        $projects = project::withCount('stakeholders')->get();
-        return response()->json(['projects' => $projects]);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'projectname' => 'required|max:255',
-            'fund' => 'required|numeric',
-            'deadline' => 'required|date',
-            'needworker' => 'required|boolean',
-        ]);
-
-        $project = project::find($id);
-
-        if (!$project) {
-            return response()->json(['message' => 'Project not found'], 404);
-        }
-
-        // Ensure the user is the owner of the project
-        if ($project->owner_id != Auth::id()) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        $project->name = $request['projectname'];
-        $project->fund_needed = $request['fund'];
-        $project->deadline = $request['deadline'];
-        $project->status = $request['needworker'];
-
-        $project->save();
-
-        return response()->json(['message' => 'Project updated successfully!', 'project' => $project]);
     }
 
     public function delete($id)
@@ -148,6 +148,7 @@ class ProjectController extends Controller
             'ownerID' => $ownerId,
             'projectname' => $request->projectname,
             'fund' => $request->fund,
+            'pplCounter' => 0,
             'deadline' => $request->deadline,
             'needworker' => $request->needworker,
         ]);

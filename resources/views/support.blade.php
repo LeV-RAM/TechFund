@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Visit Project</title>
+    <title>HIRE</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Load Bootstrap CSS -->
@@ -25,14 +25,14 @@
             /* Your content styles here */
         }
         footer {
-            margin-top:20px;
-            padding-top:20px;
             background-color: #000000;
             color: white;
             text-align: center;
             padding: 1rem 0;
             position: fixed;
             left: 0;
+            padding-bottom:20px;
+            height:100px;
             bottom: 0;
             width: 100%;
             height: 20px; /* Adjust the height as needed */
@@ -86,34 +86,11 @@
             display: flex;
             align-items: center;
         }
-
-        .visit-content {
-            display: flex;
-            justify-content: space-between;
-            padding-left: 15%;
-            margin-bottom:60px;
-            padding-bottom:60px;
-        }
-
-        .left-content, .right-content {
-            flex: 1; /* This makes both divs take equal space */
-        }
-
-        /* Optional: Add some padding or margin for better spacing */
-        .left-content {
-            padding-right: 20px; /* Adjust as needed */
-            
-        }
-
-        .right-content {
-            padding-left: 20px; /* Adjust as needed */
-            font-size: 50px;
-        }
     </style>
 </head>
-<body style="margin: 0; padding-bottom: 4rem;">
+<body>
     <nav class="navbar navbar-custom navbar-dark">
-        <span class="navbar-brand mb-0 h1"><a onclick="backHome()">TECH FUNDS</a></span>
+        <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
         <div class="navbar-right">
             <!-- New Project button -->
             <button class="btn btn-new-project" type="button" onclick=toNewProject()>
@@ -131,72 +108,34 @@
     </nav>
 
     <div class="back-button">
-        <a onclick= backHome() class="btn btn-primary" style="margin-bottom: 1rem;"><< Back</a>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="window.location.href='showProject'"><< Back</button>
     </div>
 
-    <div class="visit-content">
-        <div class="left-content">
-
-            <div class="project-card">
-                <div class="card" style="width: 30rem;height: 35rem;">
-                    @if($project->needworker == 1)
-                        <div class="hire-button">
-                            <button type="button" class="btn btn-outline-success">Hire Available</button>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mb-3">Select Amount:</div>
+                <div class="d-flex flex-wrap justify-content-center">
+                    @foreach(['Support' => '1.00', '5,00' => '5.00', '10,00' => '10.00', '100,00' => '100.00', '500,00' => '500.00', '1000,00' => '1000.00'] as $display => $value)
+                        <div class="m-2">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">${{ $display }}</h5>
+                                    <a href="{{ route('backToProject', ['value' => $value, 'id' => $project->projectID]) }} class="btn btn-primary">Select</a>
+                                </div>
+                            </div>
                         </div>
-                    @else
-                        <br>
-                    @endif
-                    <div class="card-body">
-                      <h5 class="card-title">{{$project->projectname}}</h5>
-                      <br>
-                      <b><p class="card-text"> What is {{$project->projectname}}?</p></b>
-                      <br>
-                      <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                      <br><br>
-                      <a href="#" class="btn btn-primary">More Details</a>
-                    </div>
-                  </div>
-            </div>
-        </div>
-
-        <div class="right-content">
-            <div class="component">
-                <h2>Current Funds Needed:</h2>
-                <div class="dollar">
-                    <b><p>$ {{$project->fund}}</p></b>
+                    @endforeach
                 </div>
             </div>
-
-            <div class="component">
-                <h2>Number of Supporters:</h2>
-                <b><p>{{ $project->pplCounter }} People</p></b>
-            </div>
-            @php
-                $deadlineDate = new DateTime($project->deadline);
-                $currentDate = new DateTime();
-                $interval = $currentDate->diff($deadlineDate);
-                $daysUntilDeadline = $interval->format('%a'); // %a will give the total number of days
-                $proID = $project->projectID
-            @endphp
-            <div class="component">
-                <h2>Days until Closed:</h2>
-                <b><p>{{$daysUntilDeadline}} Days</p></b>
-            </div>
-
-            <div class="support-project-button">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('fundProj', ['id' => $proID]) }}'">Invest</button>
-            </div>
-            <div class="support-project-button">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('hireProj', ['id' => $proID]) }}'">Support</button>
-            </div>
         </div>
     </div>
-
 
     <footer>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 1rem;">
             <span style="font-weight: bold;">Tech Funds</span>
             <div>
+    
                 <a href="https://twitter.com" style="color: white; margin-right: 10px; text-decoration: none;">
                     <i class="fab fa-twitter"></i>
                 </a>
@@ -207,7 +146,7 @@
         </div>
     </footer>
 </body>
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
 <script>
     function toNewProject(){
         fetch('/newproject', {
@@ -215,20 +154,20 @@
         })
         .then(response => {
             // After session update, navigate to the new URL
-            window.location.href = '/newproject';
+            window.location.href = 'newproject';
         })
     }
 
     function viewProfile(){
-        fetch('/profilepage', {
+        fetch('/profile', {
             method: 'POST'
         })
         .then(response => {
             // After session update, navigate to the new URL
-            window.location.href = '/profilepage';
+            window.location.href = 'profile';
         })
     }
-    
+
     function terminateSession(){
         fetch('/terminate', {
             method: 'POST'
@@ -238,17 +177,5 @@
             window.location.href = '/';
         })
     }
-
-    function backHome(){
-        fetch('/home', {
-            method: 'POST'
-        })
-        .then(response => {
-            // After session update, navigate to the new URL
-            window.location.href = '/home';
-        })
-    }
-
-    
 </script>
 </html>
