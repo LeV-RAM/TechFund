@@ -1,6 +1,3 @@
-{{-- resources/views/home.blade.php --}}
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +32,7 @@
             background-color: black; /* Your desired footer background color */
             color: white; /* Your desired text color */
             text-align: center;
-            /* No need for 'position: absolute' here */
+            margin-top:60px
         }
         body {
             background-color: #343a40; /* Adjusted to a dark grey to match Bootstrap's dark theme */
@@ -82,8 +79,55 @@
             display: flex;
             align-items: center;
         }
+        
+        /* register */
+
+        a.backbutton{
+            font-size:20px;
+            color:white;
+            text-decoration: none;
+            /* background-color: white; */
+            padding:15px;
+            margin:15px;
+
+        }
+
+        .g-3{
+            /* display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            align-content: space-between; */
+            font-size: 30px;
+            padding:0px 200px;
+        }
+        .col-md-6{
+            margin: 2vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: space-evenly;
+        }
+        
+        .btnstyle{
+            font-size:25px;
+        }
+
+        .form-label{
+            margin-right:20px;
+        }
+
+        input, textarea{
+            font-size:20px;
+            width:70%;
+        }
+
     </style>
 </head>
+
 <body style="margin: 0; padding-bottom: 4rem;">
 
 <nav class="navbar navbar-custom navbar-dark">
@@ -104,22 +148,55 @@
     </div>
 </nav>
 <!-- content -->
-<div style="background-color: #343a40; padding: 2rem; text-align: center;">
-    <!-- Box container -->
-    <!-- Content area with dark background -->
-<div style="background-color: #343a40; padding: 2rem; text-align: center;">
-@if(session()->has('people'))
-    <a>Welcome, {{ session('people.name') }}!</a>
-@endif
-@foreach($projects as $project)   
-    <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-        <div>
-            <p style="font-size: 1.2rem; font-weight: bold;">{{$project->projectname}}</p>
-            <p>Current Funds Collected:</p>
-            <p>{{$project->fund}}</p>
-        </div>
-    </a>
-@endforeach
+<div style="background-color: #343a40; padding: 2rem; text-align: center; display:flex; flex-direction:row; flex-wrap:wrap; justify-content: center;">
+    <!-- Box container with wrapping boxes -->
+    <a href="/" class="backbutton">BACK</a>
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <!-- Box 1 -->
+        <a style="background-color: #505050; color: white; padding: 15rem; border-radius: 20vh; margin-bottom: 2rem; width: 30vw; height: 30vh; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div style="font-size:50px;">
+            <div style="margin-bottom:8vh;">REGISTER</div>
+            
+            <form class="row g-3" method="POST" action="{{route('register.user')}}">
+                @csrf
+                
+                <div class="col-md-6">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="age">Age</label>
+                    <input type="number" id="age" name="age" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="address">Address</label>
+                    <div class = "row g-100">
+                    <textarea type="text" id="address" name="address" class="form-control" style="display: inline-block; width:30vw; height:10vh; vertical-align: top; text-align:left;">
+                    </textarea>    
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="phoneNumber">Phone number</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" pattern="[0]{1}[0-9]{11}" placeholder="start with 0">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary btnstyle" type="submit">Register</button>
+                </div>
+            </form>
+            </div>
+        </a>
 </div>
 
     
@@ -139,9 +216,6 @@
     </div>
 </footer>
 
-<!-- The rest of your page content goes here -->
-
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script>
     function toNewProject(){
         fetch('/newproject', {
@@ -154,24 +228,13 @@
     }
 
     function viewProfile(){
-        fetch('/profilepage', {
+        fetch('/profile', {
             method: 'POST'
         })
         .then(response => {
             // After session update, navigate to the new URL
-            window.location.href = 'profilepage';
-        })
-    }
-
-    function terminateSession(){
-        fetch('/terminate', {
-            method: 'POST'
-        })
-        .then(response => {
-            // After session update, navigate to the new URL
-            window.location.href = '/';
+            window.location.href = 'profile';
         })
     }
 </script>
-</body>
-</html>
+

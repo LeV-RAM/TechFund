@@ -1,6 +1,3 @@
-{{-- resources/views/home.blade.php --}}
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +32,7 @@
             background-color: black; /* Your desired footer background color */
             color: white; /* Your desired text color */
             text-align: center;
-            /* No need for 'position: absolute' here */
+            margin-top:60px
         }
         body {
             background-color: #343a40; /* Adjusted to a dark grey to match Bootstrap's dark theme */
@@ -82,44 +79,92 @@
             display: flex;
             align-items: center;
         }
+        
+        /* register */
+
+        a.backbutton{
+            font-size:20px;
+            color:white;
+            text-decoration: none;
+            /* background-color: white; */
+            padding:15px;
+            margin:15px;
+
+        }
+
+        .g-3{
+            /* display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            align-content: space-between; */
+            font-size: 30px;
+            padding:0px 200px;
+        }
+        .col-md-6{
+            margin: 6vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: space-evenly;
+        }
+        
+        .btnstyle{
+            font-size:25px;
+        }
+
+        .form-label{
+            margin: 0px 11vw;
+            padding: 0 8vw;
+        }
+
+        input{
+            font-size:20px;
+            width:100%;
+            padding: 10px 20px;
+            text-align:center;
+        }
+
     </style>
 </head>
+
 <body style="margin: 0; padding-bottom: 4rem;">
 
 <nav class="navbar navbar-custom navbar-dark">
     <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
     <div class="navbar-right">
-        <!-- New Project button -->
-        <button class="btn btn-new-project" type="button" onclick=toNewProject()>
-            <i class="fas fa-plus"></i> New Project
-        </button>
-        <!-- Notifications button -->
-        <button class="btn" type="button" onclick="window.location.href='';">
-            <i class="fas fa-bell"></i>
-        </button>
-        <!-- Profile button -->
-        <button class="btn" type="button" onclick=viewProfile()>
-            <i class="fas fa-user"></i>
-        </button>
     </div>
 </nav>
 <!-- content -->
-<div style="background-color: #343a40; padding: 2rem; text-align: center;">
-    <!-- Box container -->
-    <!-- Content area with dark background -->
-<div style="background-color: #343a40; padding: 2rem; text-align: center;">
-@if(session()->has('people'))
-    <a>Welcome, {{ session('people.name') }}!</a>
-@endif
-@foreach($projects as $project)   
-    <a href="link-to-your-destination-1" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-        <div>
-            <p style="font-size: 1.2rem; font-weight: bold;">{{$project->projectname}}</p>
-            <p>Current Funds Collected:</p>
-            <p>{{$project->fund}}</p>
-        </div>
-    </a>
-@endforeach
+<div style="background-color: #343a40; padding: 2rem; text-align: center; display:flex; flex-direction:row; flex-wrap:wrap; justify-content: center;padding-bottom:60px">
+    <!-- Box container with wrapping boxes -->
+    
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <!-- Box 1 -->
+        <a style="background-color: #505050; color: white; padding: 15rem; border-radius: 20vh; margin-bottom: 2rem; width: 30vw; height: 30vh; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+            <div style="font-size:50px;">
+            <div style="margin-bottom:1vh;">WELCOME TO TECHFUND</div>
+            
+            <form class="row g-3" method="POST" action="{{route('login.user')}}">
+                @csrf
+                <div class="col-md-6">
+                    <label class="form-label" for="email" style="margin: 1vh;">Email</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary btnstyle" type="submit">Login</button>
+                </div>
+            </form>
+            </div>
+        </a>
+        <a href="testform" class="backbutton">Register</a>
 </div>
 
     
@@ -139,39 +184,4 @@
     </div>
 </footer>
 
-<!-- The rest of your page content goes here -->
 
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script>
-    function toNewProject(){
-        fetch('/newproject', {
-            method: 'POST'
-        })
-        .then(response => {
-            // After session update, navigate to the new URL
-            window.location.href = 'newproject';
-        })
-    }
-
-    function viewProfile(){
-        fetch('/profilepage', {
-            method: 'POST'
-        })
-        .then(response => {
-            // After session update, navigate to the new URL
-            window.location.href = 'profilepage';
-        })
-    }
-
-    function terminateSession(){
-        fetch('/terminate', {
-            method: 'POST'
-        })
-        .then(response => {
-            // After session update, navigate to the new URL
-            window.location.href = '/';
-        })
-    }
-</script>
-</body>
-</html>

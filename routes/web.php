@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('login');
 });
+Route::post('/', [ProjectController::class, 'terminateSession'])->name('logout');
+Route::get('/testform', function () {
+    return view('testform');
+});
+Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('register.user');
+
+Route::post('/login', [ProjectController::class, 'authcheck'])->name('login.user');
+Route::get('/home', [ProjectController::class, 'index'])->name('Home');
+
+// Route::get('/newproject', function () {
+//     return view('newproject');
+// });
+Route::get('/newproject', [ProjectController::class, 'viewNewProject'])->name('new.project');
+Route::post('/newproject/project', [ProjectController::class, 'create'])->name('Store');
+
+Route::get('/profilepage', [ProjectController::class, 'viewProfile'])->name('view.profile');
+
+
+
+
+
+
+// Route::get('check1', function(){
+//     return view('newproject');
+// });
