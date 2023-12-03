@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Funding</title>
+    <title>New Project</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Load FontAwesome CSS -->
@@ -30,7 +30,7 @@
         <a onclick= backHome() class="btn btn-primary" style="margin-bottom: 1rem;"><< Back</a>
         <div class="card">
             <div class="card-header">
-                Project Data
+                <b>Project Data</b>
             </div>
             <div class="card-body">
             <form action="{{ route('Store') }}" method="POST">
@@ -40,17 +40,17 @@
                         <label for="projectname">Project Name:</label>
                         <input type="text" class="form-control" id="projectname" name="projectname">
                     </div>
-                    
+                    <br>
                     <div class="form-group">
                         <label for="fund">Funds Needed:</label>
                         <input type="number" class="form-control" id="fund" name="fund">
                     </div>
-                    
+                    <br>
                     <div class="form-group">
                         <label for="deadline">Deadline:</label>
                         <input type="date" class="form-control" id="deadline" name="deadline">
                     </div>
-                    
+                    <br>
                     <div class="form-group">
                         <div class="flex flex-col gap-y-5">
                             <label class="font-semibold pr-44 text-xl text-grayCerebrum" for="">Need worker?</label>
@@ -60,7 +60,7 @@
                             </select>
                         </div>
                     </div>
-                    
+                    <br><br><br>
                     <button type="submit" class="btn btn-primary">Submit Project</button>
                 </form>
             </div>

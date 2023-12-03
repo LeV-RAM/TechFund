@@ -26,19 +26,18 @@ Route::post('/testform/regist', [ProjectController::class, 'addUser'])->name('re
 
 Route::post('/login', [ProjectController::class, 'authcheck'])->name('login.user');
 Route::get('/home', [ProjectController::class, 'index'])->name('Home');
+Route::get('/newproject', [ProjectController::class, 'viewNewProject'])->name('new.project');
+Route::post('/newproject/project', [ProjectController::class, 'create'])->name('Store');
+Route::get('/profilepage', [ProjectController::class, 'viewProfile'])->name('view.profile');
+Route::get('/profilepage/editprofile', [ProjectController::class, 'edit'])->name('profile.edit');
+Route::post('/profilepage/updateprofile', [ProjectController::class, 'updateProfile'])->name('profile.update');
 Route::get('/home/{id}', [ProjectController::class, 'viewProject'])->name('showProject');
+Route::delete('/home/{id}', [ProjectController::class, 'delete'])->name('project.delete');
 Route::get('/home/{id}/funding', [ProjectController::class, 'fundProject'])->name('fundProj');
 Route::get('/home/{id}/hiring', [ProjectController::class, 'hireSupp'])->name('hireProj');
 Route::get('/home/{id}/{value}', [ProjectController::class, 'afterFund'])->name('backToProject');
 
-// Route::get('/newproject', function () {
-//     return view('newproject');
-// });  
 
-Route::get('/newproject', [ProjectController::class, 'viewNewProject'])->name('new.project');
-Route::post('/newproject/project', [ProjectController::class, 'create'])->name('Store');
-
-Route::get('/profilepage', [ProjectController::class, 'viewProfile'])->name('view.profile');
 
 
 

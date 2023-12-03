@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECH FUNDS</title>
+    <title>Register New Account</title>
     <!-- Load Bootstrap CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Load FontAwesome CSS -->
@@ -133,18 +133,7 @@
 <nav class="navbar navbar-custom navbar-dark">
     <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
     <div class="navbar-right">
-        <!-- New Project button -->
-        <button class="btn btn-new-project" type="button" onclick=toNewProject()>
-            <i class="fas fa-plus"></i> New Project
-        </button>
-        <!-- Notifications button -->
-        <button class="btn" type="button" onclick="window.location.href='';">
-            <i class="fas fa-bell"></i>
-        </button>
-        <!-- Profile button -->
-        <button class="btn" type="button" onclick=viewProfile()>
-            <i class="fas fa-user"></i>
-        </button>
+        
     </div>
 </nav>
 <!-- content -->
@@ -177,7 +166,7 @@
                     <input type="password" id="password" name="password" class="form-control">
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label" for="address">Address</label>
+                    <label class="form-label" for="address">Home Address</label>
                     <div class = "row g-100">
                     <textarea type="text" id="address" name="address" class="form-control" style="display: inline-block; width:30vw; height:10vh; vertical-align: top; text-align:left;">
                     </textarea>    

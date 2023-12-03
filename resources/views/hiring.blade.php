@@ -90,7 +90,7 @@
 </head>
 <body>
     <nav class="navbar navbar-custom navbar-dark">
-        <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+        <span class="navbar-brand mb-0 h1"><a onclick="window.location.href='showProject'">TECH FUNDS</a></span>
         <div class="navbar-right">
             <!-- New Project button -->
             <button class="btn btn-new-project" type="button" onclick=toNewProject()>
@@ -108,27 +108,43 @@
     </nav>
 
     <div class="back-button">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="window.location.href='showProject'"><< Back</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='showProject'"><< Back</button>
     </div>
 
-    <div class="container mt-5">
-        <div class="row">
-        @if(session()->has('asasdasd'))
-    <a>Welcome, {{ session('people.name') }}!</a>
-@endif
-            <div class="col-12">
-                <div class="text-center mb-3">Select Amount:</div>
-                <div class="d-flex flex-wrap justify-content-center">
-                    @foreach(['Support' => '1.00', '5,00' => '5.00', '10,00' => '10.00', '100,00' => '100.00', '500,00' => '500.00', '1000,00' => '1000.00'] as $display => $value)
-                        <div class="m-2">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title">${{ $display }}</h5>
-                                    <a href="{{ route('backToProject', ['value' => $value, 'id' => $project->projectID]) }} class="btn btn-primary">Select</a>
-                                </div>
-                            </div>
+    <div style="background-color: #343a40; padding: 2rem; text-align: center; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; padding-bottom: 60px;">
+        <!-- Box container with wrapping boxes -->
+        
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; align-items: center;">
+            <!-- Box 1 -->
+            <div style="background-color: #505050; color: white; padding: 2rem; border-radius: 10vh; margin-bottom: 2rem; width: 40vw; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <div style="font-size: 1.2rem;">
+                    <div style="margin-bottom: 1vh;"><b>APPLICATION FORM</b></div>
+                    <br>
+                    <form action="#" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                        @csrf
+
+                        <div class="form-group" style="width: 500px;">
+                            <label for="address">Current Address:</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
                         </div>
-                    @endforeach
+                        
+                        <div class="form-group" style="width: 500px;">
+                            <label for="years_of_experience">Years of Experience:</label>
+                            <input type="number" class="form-control" id="years_of_experience" name="years_of_experience" required>
+                        </div>
+                        
+                        <div class="form-group" style="width: 500px;">
+                            <label for="skills">Skills to Offer:</label>
+                            <input type="text" class="form-control" id="skills" name="skills" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cv">Upload CV:</label>
+                            <br>
+                            <input type="file" class="form-control-file" id="cv" name="cv" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" disabled>Submit Form</button>
+                    </form>
                 </div>
             </div>
         </div>

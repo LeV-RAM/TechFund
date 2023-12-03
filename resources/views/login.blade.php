@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECH FUNDS</title>
+    <title>Login</title>
     <!-- Load Bootstrap CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Load FontAwesome CSS -->
@@ -162,10 +162,13 @@
                 <div class="col-12">
                     <button class="btn btn-primary btnstyle" type="submit">Login</button>
                 </div>
+                <div class="col-12">
+                    
+                </div>
             </form>
             </div>
         </a>
-        <a href="testform" class="backbutton">Register</a>
+        <a href="testform" class="backbutton">Register New Account</a>
 </div>
 
     

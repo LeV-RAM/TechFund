@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FUNDING</title>
+    <title>Hi, {{session('people.name')}}!</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <!-- Load Bootstrap CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Load FontAwesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
         html, body {
             height: 100%;
@@ -25,14 +24,14 @@
             /* Your content styles here */
         }
         footer {
+            margin-top:20px;
+            padding-top:20px;
             background-color: #000000;
             color: white;
             text-align: center;
             padding: 1rem 0;
             position: fixed;
             left: 0;
-            padding-bottom:20px;
-            height:100px;
             bottom: 0;
             width: 100%;
             height: 20px; /* Adjust the height as needed */
@@ -86,56 +85,97 @@
             display: flex;
             align-items: center;
         }
+
+        .visit-content {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 15%;
+            margin-bottom:60px;
+            padding-bottom:60px;
+        }
+
+        .left-content, .right-content {
+            flex: 1; /* This makes both divs take equal space */
+        }
+
+        /* Optional: Add some padding or margin for better spacing */
+        .left-content {
+            padding-right: 20px; /* Adjust as needed */
+            
+        }
+
+        .right-content {
+            padding-left: 20px; /* Adjust as needed */
+            font-size: 50px;
+        }
     </style>
+
 </head>
 <body>
     <nav class="navbar navbar-custom navbar-dark">
-        <span class="navbar-brand mb-0 h1">TECH FUNDS</span>
+        <span class="navbar-brand mb-0 h1"><a onclick="backHome()"=>TECH FUNDS</a></span>
         <div class="navbar-right">
-            <!-- New Project button -->
-            <button class="btn btn-new-project" type="button" onclick=toNewProject()>
+            <button class="btn btn-new-project" type="button" onclick="toNewProject()">
                 <i class="fas fa-plus"></i> New Project
             </button>
-            <!-- Notifications button -->
             <button class="btn" type="button" onclick="window.location.href='';">
                 <i class="fas fa-bell"></i>
             </button>
-            <!-- Profile button -->
-            <button class="btn" type="button" onclick=viewProfile()>
-                <i class="fas fa-user"></i>
-            </button>
         </div>
     </nav>
-
-    <div class="back-button">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='showProject'"><< Back</button>
-    </div>
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="text-center mb-3">Select Amount:</div>
-                <div class="d-flex flex-wrap justify-content-center">
-                    @foreach(['1,00' => '1.00', '5,00' => '5.00', '10,00' => '10.00', '100,00' => '100.00', '500,00' => '500.00', '1000,00' => '1000.00'] as $display => $value)
-                        <div class="m-2">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title">${{ $display }}</h5>
-                                    <a href="{{ route('backToProject', ['value' => $value, 'id' => $project->projectID]) }}" class="btn btn-primary">Select</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+    <div class="row mb-4">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                  <a onclick="window.location.href='/profilepage'" class="btn btn-primary" style="margin-bottom: 1rem;"><< Back</a>
                 </div>
+            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+            
+                <h2>Edit Profile</h2>
+                <br>
+                <form action="{{ route('profile.update') }}" method="POST">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $people->name }}" required>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ $people->address }}" required>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="phone number">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{ $people->phoneNumber }}" required>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="password">New Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirm New Password</label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                    </div>
+                    <br>
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
             </div>
         </div>
     </div>
-
     <footer>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 1rem;">
             <span style="font-weight: bold;">Tech Funds</span>
             <div>
-    
                 <a href="https://twitter.com" style="color: white; margin-right: 10px; text-decoration: none;">
                     <i class="fab fa-twitter"></i>
                 </a>
@@ -146,7 +186,7 @@
         </div>
     </footer>
 </body>
-
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script>
     function toNewProject(){
         fetch('/newproject', {
@@ -157,15 +197,24 @@
             window.location.href = 'newproject';
         })
     }
-    
 
     function viewProfile(){
-        fetch('/profile', {
+        fetch('/profilepage', {
             method: 'POST'
         })
         .then(response => {
             // After session update, navigate to the new URL
             window.location.href = 'profile';
+        })
+    }
+
+    function backHome(){
+        fetch('/home', {
+            method: 'POST'
+        })
+        .then(response => {
+            // After session update, navigate to the new URL
+            window.location.href = 'home';
         })
     }
 

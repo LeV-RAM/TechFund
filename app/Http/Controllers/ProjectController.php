@@ -50,7 +50,6 @@ class ProjectController extends Controller
     }
 
     public function afterFund(Request $request, $id, $value){
-
         $val = intval($value);
         $project = project::findOrFail($id);
         
@@ -86,7 +85,7 @@ class ProjectController extends Controller
 
     public function viewProfile(Request $request)
     {
-        $data = Auth::user();
+        $data = Auth::user()->fresh();
         $investor = stakeholder::where('stakeholderID', $data->peopleID)->pluck('projectID');
         $invest = Project::whereIn('projectID', $investor)->get();
         
@@ -97,7 +96,46 @@ class ProjectController extends Controller
         ]);
     }
 
-    
+    public function edit()
+    {
+        return view('editprofile', ['people' => Auth::user()]);
+    }
+
+    // Handle the profile update
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required',
+            'address' => 'required',
+            'phoneNumber' => 'required|numeric|digits:12',
+        ]);
+
+        $people = Auth::user();
+        $people->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phoneNumber' => $request->phoneNumber,
+        ]);
+        
+
+        if ($request->password) {
+            $people->update(['password' => Hash::make($request->password)]);
+        }
+
+        session([
+            'people.name' => $people->name,
+            'people.age' => $people->age,
+            'people.email' => $people->email,
+            'password' => $people->password,
+            'people.address' => $people->address,
+            'people.dob' => $people->dob,
+            'people.phone number' => $request->phoneNumber,
+            
+        ]);
+
+        return redirect('/profilepage')->with('success', 'Profile updated successfully.');
+    }
 
     public function index()
     {
@@ -123,17 +161,16 @@ class ProjectController extends Controller
         $project = project::find($id);
 
         if (!$project) {
-            return response()->json(['message' => 'Project not found'], 404);
+            return redirect('/home')->with('error', 'Project not found');
         }
 
-        // Ensure the user is the owner of the project
-        if ($project->owner_id != Auth::id()) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+        // if ($project->owner_id != Auth::id()) {
+        //     return response()->json(['message' => 'Unauthorized'], 403);
+        // }
 
         $project->delete();
 
-        return response()->json(['message' => 'Project deleted successfully']);
+        return redirect('/home')->with('success', 'Project deleted successfully');
     }
 
     public function create(Request $request)
@@ -160,7 +197,6 @@ class ProjectController extends Controller
         return redirect('/home');
     }
 
-    //ini bawah tinggal copas
     public function addUser(Request $request){
 
         $request->validate([
@@ -185,8 +221,6 @@ class ProjectController extends Controller
         return redirect('/');
     }
 
-    //authentication
-
     public function authcheck(Request $request){
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -195,12 +229,10 @@ class ProjectController extends Controller
 
         if(Auth::attempt($credentials)){
             $people = Auth::user();
-            $request->session()->put('people', $people); // Store user object or necessary user data
+            $request->session()->put('people', $people);
             return redirect()->intended('/home');
             
         }
-        
-        
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }

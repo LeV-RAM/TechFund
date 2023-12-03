@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Funding</title>
+    <title>Hi, {{session('people.name')}}!</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Load FontAwesome CSS -->
@@ -41,17 +41,57 @@
         
             <div class="row mb-4">
                 <div class="col-12 text-center">
-                    <img src="{{asset('profilepic.png')}}" alt="Profile Avatar" class="rounded-circle mb-2" style="width: 100px; height: 100px;">
-                    <h2>{{session('people.name')}}</h2> 
-
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                    <img src="{{asset('profilepic.png')}}" alt="Profile Avatar" class="rounded-circle mb-2" style="width: 200px; height: 200px;">
+                    <h1>{{session('people.name')}}</h1> 
+                    <!-- Edit Profile -->
+                    
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('profile.edit') }}'">Edit Profile</button>
+                    
                     <hr>
-                    <button class="btn btn-outline-primary">[BIODATA]</button>
+                    <!-- BIODATA -->
+                    <div class="biodata" style="text-align: left; font-size: 25px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: left;"><strong>Email:</strong></div>
+                            <div style="text-align: right;">{{ session('people.email') }}</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: left;"><strong>Age:</strong></div>
+                            <div style="text-align: right;">{{ session('people.age') }} Years Old</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: left;"><strong>Home Address:</strong></div>
+                            <div style="text-align: right;">{{ session('people.address') }}</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: left;"><strong>Date of Birth:</strong></div>
+                            <div style="text-align: right;">{{ \Carbon\Carbon::parse(session('people.dob'))->format('d F Y') }}</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: left;"><strong>Phone Number:</strong></div>
+                            <div style="text-align: right;">{{ session('people.phone number') }}</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="text-align: left;"><strong>Password:</strong></div>
+                            <div style="text-align: right;">********</div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
         
             <div class="row mb-4">
                 <div class="col-12">
                     <h3>Your Projects:</h3>
+                    @if ($projects->isEmpty())
+                        <br>
+                        <p style="text-align: center; font-size: 1.5em; color: gray;">No projects found!</p>
+                    @else
+                    @endif
                     <div class="card-deck" style="background-color: #ffffff; padding: 2rem; display: flex; flex-wrap: wrap; justify-content: flex-start; text-align: center;">
                         <!-- Dynamically generated project cards -->
                         @foreach($projects as $project)   
@@ -74,6 +114,10 @@
             <div class="row">
                 <div class="col-12">
                     <h3>Supported Projects:</h3>
+                    @if ($projectsSupp->isEmpty())
+                        <br>
+                        <p style="text-align: center; font-size: 1.5em; color: gray;">No supported projects found!</p>
+                    @endif
                     <div class="card-deck" style="background-color: #ffffff; padding: 2rem; display: flex; flex-wrap: wrap; justify-content: flex-start; text-align: center;">
                         @foreach($projectsSupp as $project)   
                             <a href="{{route('showProject', ['id' => $project->projectID])}}" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none; margin: 1rem;">
@@ -91,9 +135,10 @@
                     </div>
                 </div>
             </div>
+            <hr>
         </div>
 
-
+        
         <div class="log-out">
             <button class="log-out-button" onclick=terminateSession()>Log Out</button>
         </div>

@@ -108,12 +108,23 @@
 </nav>
 <!-- content -->
 <div style="background-color: #343a40; padding: 2rem; text-align: center;">
-@if(session()->has('people'))
-    <a>Welcome, {{ session('people.name') }}!</a>
-@endif
+    @if(session()->has('people'))
+        <a><b>Welcome, {{ session('people.name') }}!</b></a>
+    @endif
+    @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <!-- Box container -->
 <div style="background-color: #343a40; padding: 2rem; display: flex; flex-wrap: wrap; justify-content: flex-start; text-align: center;">
-
+    
 @foreach($projects as $project)   
     <a href="{{route('showProject', ['id' => $project->projectID])}}" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none; margin: 1rem;">
         <div>
