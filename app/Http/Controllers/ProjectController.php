@@ -31,17 +31,19 @@ class ProjectController extends Controller
     {
         $data = Auth::user();
         $projectdata = Project::findOrFail($id);
+        // dd($projectdata);
+        
         return view('funding', [
             'people' => $data, 
             'project' => $projectdata
         ]);
     }
 
-    public function supporter(Request $request, $id)
+    public function hireSupp(Request $request, $id)
     {
         $data = Auth::user();
         $projectdata = Project::findOrFail($id);
-        return view('support', [
+        return view('hiring', [
             'people' => $data, 
             'project' => $projectdata
         ]);
@@ -85,12 +87,13 @@ class ProjectController extends Controller
     public function viewProfile(Request $request)
     {
         $data = Auth::user();
-        // $investor = stakeholder::where('stakeholderID', $data->peopleID);
+        $investor = stakeholder::where('stakeholderID', $data->peopleID)->pluck('projectID');
+        $invest = Project::whereIn('projectID', $investor)->get();
         
         return view('profilepage', [
             'people'=> $data, 
             'projects' => project::where('ownerID', $data->peopleID)->simplePaginate(4),
-            // 'projectsSupp' => project::where('projectID', $investor->projectID)->simplePaginate(4)
+            'projectsSupp' => $invest,
         ]);
     }
 

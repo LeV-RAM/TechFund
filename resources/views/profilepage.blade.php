@@ -75,7 +75,7 @@
                 <div class="col-12">
                     <h3>Supported Projects:</h3>
                     <div class="card-deck" style="background-color: #ffffff; padding: 2rem; display: flex; flex-wrap: wrap; justify-content: flex-start; text-align: center;">
-                        <!-- @foreach($projects as $project)   
+                        @foreach($projectsSupp as $project)   
                             <a href="{{route('showProject', ['id' => $project->projectID])}}" style="background-color: #505050; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-decoration: none; margin: 1rem;">
                                 <div>
                                     <p style="font-size: 1.2rem; font-weight: bold;">{{$project->projectname}}</p>
@@ -87,7 +87,7 @@
                                     @endif
                                 </div>
                             </a>
-                        @endforeach -->
+                        @endforeach
                     </div>
                 </div>
             </div>

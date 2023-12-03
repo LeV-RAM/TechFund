@@ -187,7 +187,7 @@
                 <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('fundProj', ['id' => $proID]) }}'">Invest</button>
             </div>
             <div class="support-project-button">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('hireProj', ['id' => $proID]) }}'">Support</button>
+                <button type="button" class="btn btn-primary" onclick="window.location.href='{{ route('hireProj', ['id' => $proID])}}'">Support</button>
             </div>
         </div>
     </div>

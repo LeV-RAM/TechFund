@@ -113,6 +113,9 @@
 
     <div class="container mt-5">
         <div class="row">
+        @if(session()->has('asasdasd'))
+    <a>Welcome, {{ session('people.name') }}!</a>
+@endif
             <div class="col-12">
                 <div class="text-center mb-3">Select Amount:</div>
                 <div class="d-flex flex-wrap justify-content-center">
